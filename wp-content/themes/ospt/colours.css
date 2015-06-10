@@ -1,0 +1,151 @@
+@charset "utf-8";
+/* CSS Document */
+/**
+ * [File : colours.css]
+ *
+ * Project:         Ministry of Justice Intranet
+ * Version:         1.0.
+ * Last change:     10/09/09
+ * Assigned to:     Geoff Anscombe, Harjinder Virk MOJ
+ *
+ *
+ *
+ * [Table of contents]
+ *
+ *  Content
+ *  Heading structure colours and bullets
+ *  Landing  boxes
+ *  Navigation
+ *    Module-nav bullets
+ *    Prettyphotos - lightbox
+ *    Back to tops + anchors
+ *  Tabs panel
+*/
+
+/*------------------------------------------------------------------
+ * Content
+*/
+/* hyperlinks */
+body.section1 a {color: #990066;}
+body.section2 a {color: #606f00;}
+body.section3 a {color: #006F9E;}
+body.section4 a {color: #53284f;}
+/* bullets lists */
+body.section1 .module ul li, body.section1 #mainContent ul li {background: url(structure-images/red.gif) no-repeat 0 5px;}
+
+/* following colours not used for OSPT site */
+/*
+body.section2 .module ul li, body.section2 #mainContent ul li {background: url(structure-images/green.gif) no-repeat 0 5px;}
+body.section3 .module ul li, body.section3 #mainContent ul li {background: url(structure-images/blue-bullet.gif) no-repeat 0 5px;}
+body.section4 .module ul li, body.section4 #mainContent ul li {background: url(structure-images/purple.gif) no-repeat 0 5px;}
+*/
+
+/*------------------------------------------------------------------
+ * Heading structure colours and bullets
+*/
+/* section 1 */
+body.section1 #mainContent h1, body.section1 #mainContent h3 {color: #333366;}
+body.section1 #mainContent h1 {background-image: url(structure-images/bullet-main-heading.gif);}
+body.section1 #mainContent h2 {background-image: url(structure-images/bullet-sub-heading.gif);}
+div#events-container h3 span.title {font-weight: bold; color: #990066;}
+
+/* following colours not used for OSPT site */
+/*
+body.section2 #mainContent h1, body.section2 #mainContent h3 {color: #636b00;}
+body.section2 #mainContent h1 {background-image: url(structure-images/bullet-main-heading.gif);}
+body.section2 #mainContent h2 {background-image: url(structure-images/bullet-sub-heading.gif);}
+body.section3 #mainContent h1, body.section3 #mainContent h3 {color: #007895;}
+body.section3 #mainContent h1 {background-image: url(structure-images/bullet-main-heading.gif);}
+body.section3 #mainContent h2 {background-image: url(structure-images/bullet-sub-heading.gif);}
+body.section4 #mainContent h1, body.section4 #mainContent h3 {color: #53284f;}
+body.section4 #mainContent h1 {background-image: url(structure-images/bullet-main-heading.gif);}
+body.section4 #mainContent h2 {background-image: url(structure-images/bullet-sub-heading.gif);}
+*/
+
+/*------------------------------------------------------------------
+ * Navigation
+*/
+/* colors left navigation for main 4 sections */
+body ul.sections li a{background: #000;}
+body.section1 ul.sections li a{background: #333366;}
+
+body ul.sections li a:hover {background: #ccc; color: #000; text-decoration: none;}
+body.section1 ul.sections li a:hover {background: #000; color: #FFFFFF; text-decoration: none;}
+
+body ul.sections li.section1 a{background: #333366;}
+
+/* colors for sub level 4 sections */
+/* news and annoucements */
+body #sub-level li.top-level a {color: #000;}
+body #sub-level li a {color: #005b82;}
+body #sub-level li.top-level a {background: #7fadc0;}
+body #sub-level li.top-level.top-current a {background: #ccccff url(structure-images/default.gif) no-repeat 10px 8px; }
+body #sub-level li.top-level a:hover {background: #ccccff url(structure-images/default.gif) no-repeat 10px 8px; }
+body #sub-level li.current a {background: #f3f2e9 url(structure-images/default.gif) no-repeat 10px 8px; }
+body #sub-level li a:hover {background:  #f3f2e9 url(structure-images/default.gif) no-repeat 10px 8px;}
+body #sub-level h3 {background: #7fadc0;}
+body #sub-level h3:hover {background: #7fadc0 url(structure-images/default.gif) no-repeat 10px 8px;}
+
+/* news and annoucements */
+body.section1 #sub-level li.top-level a {color: #000;}
+body.section1 #sub-level li a {color: #333366;}
+body.section1 #sub-level li.top-level a {background: #ccccff;}
+body.section1 #sub-level li.top-level.top-current a {background: #ccccff url(structure-images/blue-bullet.gif) no-repeat 10px 8px; }
+body.section1 #sub-level li.top-level a:hover {background: #ccccff url(structure-images/blue-bullet.gif) no-repeat 10px 8px; }
+body.section1 #sub-level li.current a {background: #f3f2e9 url(structure-images/blue-bullet.gif) no-repeat 10px 8px; }
+
+div#current-year ul#sub-level li.top-level a {background: #ccccff url(structure-images/blue-bullet.gif) no-repeat 10px 8px; }
+div#highlight-news2014 ul#sub-level li.news2014 a {background: #f3f2e9 url(structure-images/blue-bullet.gif) no-repeat 10px 8px; }
+div#highlight-news2013 ul#sub-level li.news2013 a {background: #f3f2e9 url(structure-images/blue-bullet.gif) no-repeat 10px 8px; }
+div#highlight-news2012 ul#sub-level li.news2012 a {background: #f3f2e9 url(structure-images/blue-bullet.gif) no-repeat 10px 8px; }
+div#highlight-news2011 ul#sub-level li.news2011 a {background: #f3f2e9 url(structure-images/blue-bullet.gif) no-repeat 10px 8px; }
+div#highlight-news2010 ul#sub-level li.news2010 a {background: #f3f2e9 url(structure-images/blue-bullet.gif) no-repeat 10px 8px; }
+div#highlight-news2009 ul#sub-level li.news2009 a {background: #f3f2e9 url(structure-images/blue-bullet.gif) no-repeat 10px 8px; }
+div#highlight-news2008 ul#sub-level li.news2008 a {background: #f3f2e9 url(structure-images/blue-bullet.gif) no-repeat 10px 8px; }
+div#highlight-news2007 ul#sub-level li.news2007 a {background: #f3f2e9 url(structure-images/blue-bullet.gif) no-repeat 10px 8px; }
+
+body.section1 #sub-level li a:hover {background:  #f3f2e9 url(structure-images/blue-bullet.gif) no-repeat 10px 8px;}
+body.section1 #sub-level h3 {background: #ccccff;}
+body.section1 #sub-level h3:hover {background: #ccccff url(structure-images/red.gif) no-repeat 10px 8px;}
+
+ul.sections li.section1.current a{background-color: #333366;}
+
+/*------------------------------------------------------------------
+ * Module-nav bullets
+*/
+body.section1 .module .module-nav div ul li a:hover, body.section1 .module .module-nav div ul li.current a{background: url(structure-images/red.gif) no-repeat scroll  10px 9px;}
+
+/*------------------------------------------------------------------
+ * Prettyphotos - lightbox
+*/
+body div.ppt {background:#005b82;}
+body.section1 div.ppt {background:#333366;}
+
+body div.dark_square .pp_content a.pp_close {background-image: url(structure-images/sprite-default.gif)}
+body.section1 div.dark_square .pp_content a.pp_close {background-image: url(structure-images/sprite-red.gif)}
+
+body div.pp_pic_holder {border: 2px solid #005b82;}
+body.section1 div.pp_pic_holder {border: 2px solid #333366;}
+
+div.dark_square .pp_content a.pp_next:hover {background: url(structure-images/btnNext.gif) center right no-repeat; cursor: pointer;}
+div.dark_square .pp_content a.pp_previous:hover {background: url(structure-images/btnPrevious.gif) center left no-repeat; cursor: pointer;}
+body.section1 div.dark_square .pp_content a.pp_next:hover {background: url(structure-images/btnNext-red.gif) center right no-repeat; cursor: pointer;}
+body.section1 div.dark_square .pp_content a.pp_previous:hover {background: url(structure-images/btnPrevious-red.gif) center left no-repeat; cursor: pointer;}
+
+/*------------------------------------------------------------------
+ * Back to tops + anchors
+*/
+/* back to tops */
+body.section1 .back-to-top a{background: url(structure-images/back-to-top-red.gif) no-repeat left bottom;}
+
+/* anchors */
+body.section1 #mainContent ul.anchors li{background: url(structure-images/anchor-arrow-red.gif) no-repeat left bottom;}
+
+/*------------------------------------------------------------------
+ * Tabs panel
+*/
+body.section1 #mainContent #tabs-panel h2 {color: #333366;}
+body.section1 #mainContent #tabs-panel #tabs{border-bottom: 5px solid #333366;}
+body.section1 #mainContent #tabs-panel #tabs li a{color: #333366;}
+body.section1 #mainContent #tabs-panel #tabs li a:hover{background: #ccccff;}
+body.section1 #mainContent #tabs-panel #tabs li.tabs-selected a{background: #333366;}
