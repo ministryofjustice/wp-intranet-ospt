@@ -5,35 +5,40 @@ use Roots\Sage\Wrapper;
 
 ?>
 
-<!doctype html>
-<html class="no-js" <?php language_attributes(); ?>>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <?php get_template_part('templates/head'); ?>
-  <body <?php body_class(); ?>>
-    <!--[if lt IE 9]>
-      <div class="alert alert-warning">
-        <?php _e('You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.', 'sage'); ?>
-      </div>
-    <![endif]-->
-    <?php
-      do_action('get_header');
-      get_template_part('templates/header');
-    ?>
-    <div class="wrap container" role="document">
-      <div class="content row">
-        <main class="main" role="main">
-          <?php include Wrapper\template_path(); ?>
-        </main><!-- /.main -->
-        <?php if (Config\display_sidebar()) : ?>
-          <aside class="sidebar" role="complementary">
+  <body class="section1">
+    <!-- wrapper starts -->
+    <div id="wrapper">
+      <!-- inner wrapper starts -->
+      <div id="inner-wrapper">
+        <?php
+          do_action('get_header');
+          get_template_part('templates/header');
+        ?>
+
+        <div class="main-wrapper">
+
+          <?php if (Config\display_sidebar()) : ?>
             <?php include Wrapper\sidebar_path(); ?>
-          </aside><!-- /.sidebar -->
-        <?php endif; ?>
-      </div><!-- /.content -->
-    </div><!-- /.wrap -->
-    <?php
-      do_action('get_footer');
-      get_template_part('templates/footer');
-      wp_footer();
-    ?>
+          <?php endif; ?>
+
+          <!-- main content starts -->
+          <div id="mainContent" class="">
+            <?php include Wrapper\template_path(); ?>
+          </div><!-- main content ends -->
+          <div class="clear"></div>
+        </div>
+
+        <?php
+          do_action('get_footer');
+          get_template_part('templates/footer');
+          wp_footer();
+        ?>
+        <div id="push"></div>
+      </div><!-- inner wrapper ends -->
+    </div><!-- wrapper ends -->
   </body>
 </html>

@@ -90,7 +90,7 @@ body #sub-level h3:hover {background: #7fadc0 url(structure-images/default.gif) 
 body.section1 #sub-level li.top-level a {color: #000;}
 body.section1 #sub-level li a {color: #333366;}
 body.section1 #sub-level li.top-level a {background: #ccccff;}
-body.section1 #sub-level li.top-level.top-current a {background: #ccccff url(structure-images/blue-bullet.gif) no-repeat 10px 8px; }
+body.section1 #sub-level li.top-level.top-current a, body.section1 #sub-level li.top-level.current a {background: #ccccff url(structure-images/blue-bullet.gif) no-repeat 10px 8px; }
 body.section1 #sub-level li.top-level a:hover {background: #ccccff url(structure-images/blue-bullet.gif) no-repeat 10px 8px; }
 body.section1 #sub-level li.current a {background: #f3f2e9 url(structure-images/blue-bullet.gif) no-repeat 10px 8px; }
 
