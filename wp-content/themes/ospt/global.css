@@ -94,9 +94,9 @@ html, body {
 }
 * html div#wrapper {
     width: 766px /* fallback value */;
-    width: expression(((document.compatMode && document.compatMode=='CSS1Compat') ? document.documentElement.clientWidth : 
-    document.body.clientWidth) > 1240 ? "1255px" : 
-    (((document.compatMode && document.compatMode=='CSS1Compat') ? document.documentElement.clientWidth : 
+    width: expression(((document.compatMode && document.compatMode=='CSS1Compat') ? document.documentElement.clientWidth :
+    document.body.clientWidth) > 1240 ? "1255px" :
+    (((document.compatMode && document.compatMode=='CSS1Compat') ? document.documentElement.clientWidth :
     document.body.clientWidth) < 778 ? "766px" : "99.7%")); /* line doesn't comply to W3C */
 }
 #header {
@@ -104,8 +104,11 @@ html, body {
     margin: 5px;
 }
 #mainContent {
-    margin: 10px 215px 0 215px;
+    /*margin: 10px 215px 0 215px;*/
+    float: left;
+    width: 830px;
     padding: 0 10px;
+    margin-top: 10px;
 }
 #mainContent.full-width {
     margin: 10px 7px 0 215px;
@@ -115,7 +118,7 @@ html, body {
     float: left;
     width: 200px;
     margin: 10px 0 0 7px;
-    clear: left;
+    /*clear: left;*/
     padding-bottom: 30px;
 }
 #rightColumn {
@@ -164,7 +167,7 @@ html, body {
     background: #000;
     width: 99%;
 /*    width: 514px; */
-    
+
 }
 .globalNav-inner {
     background: #000000;
@@ -282,15 +285,19 @@ ul.sections li.section1 a:hover, ul.sections li.section2 a:hover, ul.sections li
     color: #ffffff;
     text-decoration: none;
     background: #000000;
-    
+
 }
 ul.sections li.section1.current a, ul.sections li.section2.current a, ul.sections li.section3.current a, ul.sections li.section4.current a,
 ul.sections li.section1.current a:hover, ul.sections li.section2.current a:hover, ul.sections li.section3.current a:hover, ul.sections li.section4.current a:hover{
     background-image: url(structure-images/default-alt.gif);
     background-repeat: no-repeat;
-    background-position: 10px 7px;        
-    padding-left: 25px; 
+    background-position: 10px 7px;
+    padding-left: 25px;
     width: 165px;
+}
+
+ul.sections li.current #sub-level, ul.sections li.current-menu-ancestor #sub-level, ul.sections li.open #sub-level {
+  display: block !important;
 }
 
 
@@ -301,6 +308,7 @@ ul.sections li.section1.current a:hover, ul.sections li.section2.current a:hover
     margin:0;
     background: url(structure-images/bottom_curve.gif) no-repeat bottom;
     font-size: 95%;
+    display:none;
 }
 .sub-level-border {
     border-top: 5px solid #000;
@@ -461,40 +469,40 @@ html body #mainContent .landing-box h2 a:hover {text-decoration: none;}
 }
 .full-width .seperator {width: 99.5%;}
 /* dynamic links */
-html body #mainContent .pdf, 
-html body #mainContent .doc, 
-html body #mainContent .xls, 
-html body #mainContent .email, 
+html body #mainContent .pdf,
+html body #mainContent .doc,
+html body #mainContent .xls,
+html body #mainContent .email,
 html body #mainContent .http,
-#rightColumn .pdf, 
-#rightColumn .doc, 
-#rightColumn .xls, 
-#rightColumn .email, 
-#rightColumn .http, 
-.pdf, 
-.doc, 
-.xls, 
-.email, 
+#rightColumn .pdf,
+#rightColumn .doc,
+#rightColumn .xls,
+#rightColumn .email,
+#rightColumn .http,
+.pdf,
+.doc,
+.xls,
+.email,
 .http {
     padding-right: 20px;
     background-repeat: no-repeat;
     background-position: top right;
 }
 
-html body #mainContent ul li.pdf, 
-html body #mainContent ul li.doc, 
-html body #mainContent ul li.xls, 
-html body #mainContent ul li.email, 
+html body #mainContent ul li.pdf,
+html body #mainContent ul li.doc,
+html body #mainContent ul li.xls,
+html body #mainContent ul li.email,
 html body #mainContent ul li.http,
-#rightColumn li.pdf, 
-#rightColumn li.doc, 
-#rightColumn li.xls, 
-#rightColumn li.email, 
-#rightColumn li.http, 
-li.pdf, 
-li.doc, 
-li.xls, 
-li.email, 
+#rightColumn li.pdf,
+#rightColumn li.doc,
+#rightColumn li.xls,
+#rightColumn li.email,
+#rightColumn li.http,
+li.pdf,
+li.doc,
+li.xls,
+li.email,
 li.http {
     padding-left: 20px;
     background-repeat: no-repeat;
@@ -622,17 +630,17 @@ li.http {
     color: #ffffff;
 }
 #mainContent div#a li.a a, #mainContent div#b li.b a,
-#mainContent div#c li.c a, #mainContent div#d li.d a, 
+#mainContent div#c li.c a, #mainContent div#d li.d a,
 #mainContent div#e li.e a, #mainContent div#f li.f a,
-#mainContent div#g li.g a, #mainContent div#h li.h a, 
+#mainContent div#g li.g a, #mainContent div#h li.h a,
 #mainContent div#i li.i a, #mainContent div#j li.j a,
-#mainContent div#k li.k a, #mainContent div#l li.l a, 
+#mainContent div#k li.k a, #mainContent div#l li.l a,
 #mainContent div#m li.m a, #mainContent div#n li.n a,
-#mainContent div#o li.o a, #mainContent div#p li.p a, 
+#mainContent div#o li.o a, #mainContent div#p li.p a,
 #mainContent div#q li.q a, #mainContent div#r li.r a,
-#mainContent div#s li.s a, #mainContent div#t li.t a, 
+#mainContent div#s li.s a, #mainContent div#t li.t a,
 #mainContent div#u li.u a, #mainContent div#v li.v a,
-#mainContent div#w li.w a, #mainContent div#x li.x a, 
+#mainContent div#w li.w a, #mainContent div#x li.x a,
 #mainContent div#y li.y a, #mainContent div#z li.z a {
     background: #333366;
     color: #ffffff;
@@ -656,7 +664,7 @@ body #mainContent ul.next-prev li.next {float: right;}
     margin-right: 10px;
 }
 #slider {
-    width: 206px;    
+    width: 206px;
 }
 #slider ul {margin-left: 0;}
 #mainContent #slider ul li{
@@ -672,7 +680,7 @@ body #mainContent ul.next-prev li.next {float: right;}
     display: block;
     text-decoration: underline;
 }
-#slider ul li a:hover span{text-decoration: none;}                
+#slider ul li a:hover span{text-decoration: none;}
 /* Numeric controls */
 ol#controls {
     border-top: 5px solid #f3f2e9;
@@ -841,10 +849,10 @@ body .module .module-nav div ul li {
     background: none;
     margin: 0;
     padding: 0;
-    
+
 }
 .module #slider ul li a img {border: none; padding: 0}
-/* Numeric controls */    
+/* Numeric controls */
 .module ol#controls {
     margin: 0 0 3px 0;
     padding: 0;
@@ -883,7 +891,7 @@ body .module .module-nav div ul li {
     background: #f3f2e9;
     color: #000;
     font-size: 1.25em;
-    clear: both;
+    /*clear: both;*/
 }
 #mainContent #tabs-panel .promo {clear: both; margin-bottom: 15px;}
 #mainContent #tabs-panel img {
@@ -950,7 +958,7 @@ html body #mainContent #tabs-panel #tabs li.tabs-selected a{
     color: #FFFFFF;
 }
 .tabs-hide {display: none;}
- 
+
 .reddot {color: #ff0000; font-size: 90%;}
 
 ul.hide-reddot span.reddot {display: none;}
@@ -978,4 +986,14 @@ div#events-container div.event-title {
 }
 div#events-container div.clearfix {
     border-bottom: #f3f2e9;
+}
+
+.all-header {
+  display: block;
+  height: 102px;
+}
+
+.main-wrapper {
+  display: block;
+  margin-bottom: 40px;
 }
