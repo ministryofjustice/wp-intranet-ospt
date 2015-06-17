@@ -119,7 +119,7 @@ function nav_class ($classes, $item) {
         $classes[] = 'section1 current';
     }
 
-    if(is_single() && get_post_type() == 'post' && $item->title == 'News') {
+    if(is_single() && get_post_type() == 'post' && $item->title == 'News' || in_array('current-page-ancestor', $classes)) {
       $classes[] = 'open';
     }
 

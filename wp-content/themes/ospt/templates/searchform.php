@@ -1,5 +1,5 @@
 <div class="search-block">
-  <span class="date"><script type="text/javascript" src="scripts/date.js"></script></span>
+  <?php /*<span class="date"><script type="text/javascript" src="<?= get_stylesheet_directory_uri(); ?>/date.js"></script></span>*/ ?>
   <div class="search-intranet" id="int">
     <!-- searchbox for intranet and peopleFinder -->
     <form action="/" method="get" name="query" id="query">

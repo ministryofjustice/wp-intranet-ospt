@@ -137,6 +137,95 @@ acf_add_local_field_group(array (
 ));
 
 acf_add_local_field_group(array (
+  'key' => 'group_5581765055379',
+  'title' => 'Document Downloads',
+  'fields' => array (
+    array (
+      'key' => 'field_55817654f4231',
+      'label' => 'Document Downloads',
+      'name' => 'document_downloads',
+      'type' => 'repeater',
+      'instructions' => '',
+      'required' => 0,
+      'conditional_logic' => 0,
+      'wrapper' => array (
+        'width' => '',
+        'class' => '',
+        'id' => '',
+      ),
+      'min' => '',
+      'max' => '',
+      'layout' => 'block',
+      'button_label' => 'Add Row',
+      'sub_fields' => array (
+        array (
+          'key' => 'field_5581765ff4232',
+          'label' => 'Title',
+          'name' => 'title',
+          'type' => 'text',
+          'instructions' => '',
+          'required' => 0,
+          'conditional_logic' => 0,
+          'wrapper' => array (
+            'width' => '',
+            'class' => '',
+            'id' => '',
+          ),
+          'default_value' => '',
+          'placeholder' => '',
+          'prepend' => '',
+          'append' => '',
+          'maxlength' => '',
+          'readonly' => 0,
+          'disabled' => 0,
+        ),
+        array (
+          'key' => 'field_55817665f4233',
+          'label' => 'File',
+          'name' => 'file',
+          'type' => 'file',
+          'instructions' => '',
+          'required' => 0,
+          'conditional_logic' => 0,
+          'wrapper' => array (
+            'width' => '',
+            'class' => '',
+            'id' => '',
+          ),
+          'return_format' => 'url',
+          'library' => 'all',
+          'min_size' => '',
+          'max_size' => '',
+          'mime_types' => '',
+        ),
+      ),
+    ),
+  ),
+  'location' => array (
+    array (
+      array (
+        'param' => 'post_type',
+        'operator' => '==',
+        'value' => 'page',
+      ),
+    ),
+    array (
+      array (
+        'param' => 'page_parent',
+        'operator' => '!=',
+        'value' => '685',
+      ),
+    ),
+  ),
+  'menu_order' => 0,
+  'position' => 'normal',
+  'style' => 'default',
+  'label_placement' => 'top',
+  'instruction_placement' => 'label',
+  'hide_on_screen' => '',
+));
+
+acf_add_local_field_group(array (
   'key' => 'group_557eb934b336b',
   'title' => 'Related Links',
   'fields' => array (
@@ -206,9 +295,16 @@ acf_add_local_field_group(array (
         'value' => 'page',
       ),
     ),
+    array (
+      array (
+        'param' => 'page',
+        'operator' => '!=',
+        'value' => '685',
+      ),
+    ),
   ),
   'menu_order' => 0,
-  'position' => 'side',
+  'position' => 'normal',
   'style' => 'default',
   'label_placement' => 'top',
   'instruction_placement' => 'label',

@@ -1,4 +1,4 @@
-<?php $related_links = get_field('links'); ?>
+<?php $related_links = get_field('links'); $document_downloads = get_field('document_downloads'); ?>
 <!-- left column/navigation starts -->
 <div id="leftColumn" class="">
   <!-- sections starts -->
@@ -61,19 +61,35 @@
       </div>
     </div><!-- module ends -->
   </div><!-- right column ends -->
-<?php elseif(!empty($related_links)): ?>
-  <?php if( have_rows('links') ): ?>
+<?php endif; ?>
+
+
+<?php if(!empty($related_links) || !empty($document_downloads)): ?>
   <div id="rightColumn">
-    <!-- related links box starts -->
-    <div class="module">
-      <div class="heading"><h2>Related links</h2></div>
-      <ul>
-        <?php while( have_rows('links') ): the_row(); ?>
-          <li><a href="<?= get_sub_field('link'); ?>"><?= get_sub_field('title'); ?></a></li>
-        <?php endwhile; ?>
-      </ul>
-    </div>
-    <!-- related links box ends -->
+  <?php if( have_rows('links') ): ?>
+  <!-- related links box starts -->
+  <div class="module">
+    <div class="heading"><h2>Related links</h2></div>
+    <ul>
+      <?php while( have_rows('links') ): the_row(); ?>
+        <li><a href="<?= get_sub_field('link'); ?>"><?= get_sub_field('title'); ?></a></li>
+      <?php endwhile; ?>
+    </ul>
   </div>
+  <!-- related links box ends -->
   <?php endif; ?>
+
+  <?php if( have_rows('document_downloads') ): ?>
+  <!-- related links box starts -->
+  <div class="module">
+    <div class="heading"><h2>Document downloads</h2></div>
+    <ul>
+      <?php while( have_rows('document_downloads') ): the_row(); ?>
+        <li><a href="<?= get_sub_field('file'); ?>"><?= get_sub_field('title'); ?></a></li>
+      <?php endwhile; ?>
+    </ul>
+  </div>
+  <!-- related links box ends -->
+  <?php endif; ?>
+</div>
 <?php endif; ?>

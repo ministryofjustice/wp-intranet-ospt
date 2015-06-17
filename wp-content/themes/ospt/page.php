@@ -9,19 +9,22 @@ $args = array(
   'post_parent' => get_the_ID(),
   'post_type'   => 'page',
   'numberposts' => -1,
-  'post_status' => 'publish'
+  'post_status' => 'publish',
+  'orderby' => 'post_title',
+  'order' => 'ASC'
 );
 
 $children = get_children($args);
 
 ?>
 
-<?php if(!empty($children)): ?>
-  <?php foreach ($children as $key => $value): ?>
+<?php if(!empty($children)): $count = 1; ?>
+  <?php foreach ($children as $key => $value): $url = get_permalink($key); $url = parse_url($url); ?>
     <div class="landing-box">
-      <h2><a href="<?= the_permalink($key); ?>"><?= get_the_title($key); ?></a></h2>
+      <h2><a href="<?= $url['path']; ?>"><?= get_the_title($key); ?></a></h2>
     </div>
-  <?php endforeach; ?>
+    <?php if($count % 2 == 0): ?><div class="clear"></div><?php endif; ?>
+  <?php $count++; endforeach; ?>
 
   <div class="clear"></div>
 <?php endif; ?>
