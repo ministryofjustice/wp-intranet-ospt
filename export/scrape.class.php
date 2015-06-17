@@ -385,14 +385,14 @@ class ScrapeSite
           'post_parent' => $this->getID($page->post_parent),
         );
 
-        wp_insert_post( $post, $error );
+        $post_id = wp_insert_post( $post, $error );
 
-        if(!empty($post->ID) && !empty($page->post_category)) {
-          update_field('field_55783009d0ba5', $page->post_category, $post->ID);
+        if(!empty($post_id) && !empty($page->post_category)) {
+          update_field('field_55783009d0ba5', $page->post_category, $post_id);
         }
 
-        if(!empty($post->ID) && $page->post_type == 'post') {
-          update_field('field_55794a1b32019', $page->post_content, $post->ID);
+        if(!empty($post_id) && $page->post_type == 'post') {
+          update_field('field_55794a1b32019', $page->post_content, $post_id);
         }
 
         if(!empty($error)) {
