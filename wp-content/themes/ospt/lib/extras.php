@@ -62,7 +62,7 @@ function post_content_output($content) {
   $category = get_the_category( $post->ID );
   $acf_content = get_field( 'content', $post->ID );
 
-  if($post->post_type == "post" && empty($post->post_content) && $category[0]->cat_name == "News" && !empty($acf_content)) {
+  if($post->post_type == "post" && $category[0]->cat_name == "News" && !empty($acf_content)) {
     $content = $acf_content;
   }
   return $content;
@@ -78,7 +78,7 @@ function post_permalink_output($content) {
   $category = get_the_category( $post->ID );
   $acf_content = get_field( 'document', $post->ID );
 
-  if($post->post_type == "post" && empty($post->post_content) && $category[0]->cat_name == "Office Notices" && !empty($acf_content)) {
+  if($post->post_type == "post" && $category[0]->cat_name == "Office Notices" && !empty($acf_content)) {
     $content = $acf_content;
   }
   return $content;
