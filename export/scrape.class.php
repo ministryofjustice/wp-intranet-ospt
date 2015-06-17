@@ -85,6 +85,7 @@ class ScrapeSite
         }
       }
       $this->saveJson($scrape);
+      //var_dump($scrape);
     } else {
       print "The scrape does not contain any posts/pages...<br>";
       die();
@@ -99,8 +100,29 @@ class ScrapeSite
     $csv_file = fopen($this->csv, "r");
     $csv_contents = fread($csv_file, filesize($this->csv));
     $urls = explode("\n", $csv_contents);
+    $urls = array_filter($urls, array($this, 'ignore_pages'));
     print "URLs loaded successfully...<br>";
     return $urls;
+  }
+
+  protected function ignore_pages($var)
+  {
+    $ignore = [
+      "http://intranet-ospt.dev/export/dump/index.htm",
+      "http://intranet-ospt.dev/export/dump/news-and-events.htm",
+      "http://intranet-ospt.dev/export/dump/778.htm",
+      "http://intranet-ospt.dev/export/dump/news-2013.htm",
+      "http://intranet-ospt.dev/export/dump/696.htm",
+      "http://intranet-ospt.dev/export/dump/news-2011.htm",
+      "http://intranet-ospt.dev/export/dump/ospt-intranet.htm",
+      "http://intranet-ospt.dev/export/dump/news-2009.htm"
+    ];
+    preg_match("/http:\/\/intranet-ospt.dev\/export\/dump\/[a-z].htm/", $var, $matches);
+    if(!empty($matches) || in_array($var, $ignore)) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   /**
@@ -132,31 +154,28 @@ class ScrapeSite
         $content_type = $client->getResponse()->getHeader('Content-Type');
         if (strpos($content_type, 'text/html') !== false) {
 
-          $post_type = $this->postType($url);
+          $post_type = $this->postType($crawler, $url);
           //$this->checkSidebar($crawler, $url);
           if($post_type == "page") {
-            $parent = $this->postParent($url);
             $scrape = [
-              "post_title" => $this->postTitle($crawler, $parent),
+              "post_title" => $this->postTitle($crawler, $url),
               "post_content" => $this->postContent($crawler, $post_type),
               "post_name" => $this->postName($url),
-              "post_date" => $this->pageDate($crawler),
-              "post_parent" => $parent,
+              "post_date" => $this->pageDate($crawler, $url),
+              "post_parent" => $this->postParent($crawler),
               "post_type" => $post_type
             ];
-          } elseif($post_type == "archive") {
-            //$this->getExternal($crawler);
-            $scrape = $this->newsArchive($crawler);
-          } elseif($post_type == "post") {
+          } elseif($post_type == "post_news") {
             $scrape = [
-              "post_title" => $this->postTitle($crawler, $parent),
+              "post_title" => $this->postTitle($crawler, $url),
               "post_content" => $this->postContent($crawler, $post_type),
               "post_name" => $this->postName($url),
-              "post_date" => $this->postDate($crawler),
-              "post_type" => $post_type,
+              "post_date" => $this->postDate($crawler, $url),
+              "post_type" => 'post',
+              'post_category' => 1,
             ];
-          } elseif($post_type == "events") {
-            // Let's just do this manually...
+          } elseif($post_type == "post_office_notices") {
+
           }
 
           if(!empty($scrape)) {
@@ -179,85 +198,30 @@ class ScrapeSite
    */
   protected function checkSidebar($crawler, $url)
   {
-    $crawler->filter('#right')->each(function ($node, $i) use (&$url) {
+    $crawler->filter('#rightColumn .module')->each(function ($node, $i) use (&$url) {
       print "Sidebar on: " . $url . "<br>";
     });
   }
 
   /**
-   * Get external news posts
-   * @param DomCrawler $crawler
-   */
-  protected function getExternal($crawler)
-  {
-    $crawler->filter('#wide h2 a')->each(function ($node, $i) {
-      $url = $node->attr('href');
-      preg_match("/http(s|):\/\/.*/ /*", $url, $matches);
-      preg_match("/news\/.*/ /*", $url, $matches2);
-      if(!empty($matches) || empty($matches2)) {
-        print $node->text() . "&nbsp; &nbsp; &nbsp; " . $url . "<br>";
-      }
-    });
-  }
-
-  /**
-   * Scrape the news archive posts
-   * @param DomCrawler $crawler
-   */
-  protected function newsArchive($crawler)
-  {
-    $crawler->filter('#wide')->each(function ($node, $i) use (&$scrape) {
-      $html = str_replace("<hr />", "<hr>", $node->html());
-      $posts = explode("<hr>", $html);
-      array_shift($posts);
-
-      $scrape = [];
-      foreach ($posts as $post) {
-        preg_match("/<h2>\X+<\/h2>/", $post, $titles);
-        $title = "";
-        if(!empty($titles[0])) {
-          $title = trim(strip_tags($titles[0]));
-          $title = preg_replace('/\s+/', ' ', $title);
-          $title = str_replace("&amp;", "&", $title);
-        }
-
-        $date = "";
-        preg_match("/<strong>\d{1,2}\s+[A-Za-z]+\s+\d{4}<\/strong>/", $post, $dates);
-        if(!empty($dates[0])) {
-          $date = trim(strip_tags($dates[0]));
-          $date = DateTime::createFromFormat('j F Y', $date);
-          $date = $date->format('Y-m-d H:i:s');
-        }
-
-        $post = preg_replace("/<h2>\X+<\/h2>/", "", $post);
-        $post = preg_replace("/<p><strong>\d{1,2}\s+[A-Za-z]+\s+\d{4}<\/strong><\/p>/", "", $post);
-        $post = preg_replace("/<!--.*-->/", "", $post);
-
-        $scrape[] = [
-          "post_title" => $title,
-          "post_content" => $post,
-          "post_date" => $date,
-          "post_type" => "post"
-        ];
-      }
-    });
-    return $scrape;
-  }
-
-  /**
    * Scrape the post title
    */
-  protected function postTitle($crawler, $parent)
+  protected function postTitle($crawler, $url)
   {
-    $crawler->filter('#mid h1, #wide h1, #mid h2, #wide h2, #mid h3, #wide h3')->each(function ($node, $i) use (&$post_title) {
-      preg_match("/<!-- InstanceBeginEditable name=\"(titleofpage|page-header|main-header|pagetitle)\" -->/", $node->html(), $matches);
-      if(!empty($matches) && !empty($node->text())) {
-        $post_title = $node->text();
-      } elseif($node->text() == "60 seconds with...") {
-        $post_title = "60 seconds with...";
+    $crawler->filter('#mainContent')->each(function ($node, $i) use (&$post_title, &$url) {
+      $html = $node->html();
+      preg_match('/^\s*<h1>\s*(.+)\s*<\/h1>\s*<h2>\s*(.+)\s*<\/h2>/', $html, $h2);
+      preg_match('/^\s*<h1>\s*(.+)\s*<\/h1>/', $html, $h1);
+      if(!empty($h2[2])) {
+        $post_title = $h2[2];
+      } elseif(!empty($h1[1])) {
+        $post_title = $h1[1];
+      } else {
+        echo "Can't find Title on: " . $url . "<br>";
       }
+
     });
-    return $post_title;
+    return htmlspecialchars_decode($post_title);
   }
 
   /**
@@ -265,18 +229,17 @@ class ScrapeSite
    */
   protected function postContent($crawler, $post_type)
   {
-    $crawler->filter('#mid, #wide')->each(function ($node, $i) use (&$post_content, &$post_type) {
+    $crawler->filter('#mainContent')->each(function ($node, $i) use (&$post_content) {
       $post_content = $node->html();
-
-      $start = '<!-- InstanceBeginEditable name="content" -->';
-      $end = '<!-- InstanceEndEditable -->';
-
-      $post_content = stristr($post_content, $start);
-      $dapost_contentta = substr($post_content, strlen($start));
-      $stop = stripos($post_content, $end);
-      $post_content = substr($post_content, 0, $stop);
+      $post_content = preg_replace('/^\s*<h1>\s*(.+)\s*<\/h1>\s*<h2>\s*(.+)\s*<\/h2>/', "", $post_content);
+      $post_content = preg_replace('/^\s*<h1>\s*(.+)\s*<\/h1>/', "", $post_content);
       $post_content = preg_replace("/<!--.*-->/", "", $post_content);
-      $post_content = preg_replace("/http:\/\/intranet.justice.gsi.gov.uk\/joew/", "/", $post_content);
+      $post_content = preg_replace("/http:\/\/intranet.justice.gsi.gov.uk\/ospt/", "/", $post_content);
+      $post_content = preg_replace("/<div class=\"imageBox\"><\/div>/", "", $post_content);
+
+      if($post_type = "post_news") {
+        $post_content = preg_replace('/^\s*<h3>\s*(.+)\s*<\/h3>/', "", $post_content);
+      }
 
       $post_content = preg_replace_callback(
         "#(<\s*a\s+[^>]*href\s*=\s*[\"'])(?!http|mailto|javascript|\#)([^\"'>]+)([\"'>]+)#",
@@ -301,13 +264,10 @@ class ScrapeSite
         $post_content
       );
 
-      if($post_type == "post") {
-        $post_content = preg_replace("/<p><strong>([0-9]{1,2} [A-Za-z]+ [0-9]{4})<\/strong><\/p>/", "", $post_content, 1);
-      } // ??
-
       $post_content = iconv("UTF-8", "ISO-8859-1//TRANSLIT", $post_content);
       $post_content = mb_convert_encoding($post_content, 'HTML-ENTITIES', 'iso-8859-1');
       $post_content = utf8_encode($post_content);
+      $post_content = trim($post_content);
 
     });
     return $post_content;
@@ -316,42 +276,34 @@ class ScrapeSite
   /**
    * Calculate the post type
    */
-  protected function postType($url)
+  protected function postType($crawler, $url)
   {
-    if(strpos($url, '/news/')) {
-      return "post";
-    } elseif(strpos($url, 'archived-news')) {
-      return "archive";
-    } elseif(strpos($url, 'calendar')) {
-      return "events";
-    } else {
-      return "page";
-    }
+    $crawler->filter('title')->each(function ($node, $i) use (&$post_type) {
+      $title = $node->text();
+      if(strpos($node->text(), "News & events - Office notices")) {
+        $post_type = "post_office_notices";
+      } elseif(strpos($node->text(), "News - ")) {
+        $post_type = "post_news";
+      } else {
+        $post_type = "page";
+      }
+    });
+    return $post_type;
   }
 
   /**
    * Scrape a post parent
    */
-  protected function postParent($url)
+  protected function postParent($crawler)
   {
-    $parsed_url = parse_url($url);
-    $path = str_replace("/export/dump/joew/", "", $parsed_url['path']);
-    $directories = explode('/', $path);
-    if(count($directories) > 1) {
-      if(end($directories) == "index.htm" ||
-         end($directories) == "l-d.htm" ||
-         end($directories) == "jud-gov-homepage.htm" ||
-         end($directories) == "bite-size-learning.htm" ||
-         end($directories) == "l-d-project-team.htm") {
-        unset($directories[count($directories)-1]);
-        unset($directories[count($directories)-1]);
-        $slug = implode("/", $directories);
-      } else {
-        unset($directories[count($directories)-1]);
+    $crawler->filter('title')->each(function ($node, $i) use (&$post_parent) {
+      $parts = explode("-", $node->text());
+      if(count($parts) == 2) {
+        $post_parent = trim($parts[0]);
+        $post_parent = str_replace("Business information & reports", "Business information and reports", $post_parent);
       }
-      $slug = implode("/", $directories);
-      return $slug;
-    }
+    });
+    return $post_parent;
   }
 
   /**
@@ -362,18 +314,10 @@ class ScrapeSite
     $parsed_url = parse_url($url);
     $path = $parsed_url['path'];
     $directories = explode('/', $path);
-    $file_name = str_replace(".htm", "", end($directories));
-    $up_level = $directories[count($directories)-2];
+    $post_name = str_replace(".htm", "", end($directories));
 
-    if(strpos($path, "/joew/index.htm")) {
-      $post_name = "index";
-    } elseif($file_name == "index" || $file_name == "l-d" || $file_name == "jud-gov-homepage" || $file_name == "l-d-project-team") {
-      $post_name = $up_level;
-    } else {
-      $post_name = $file_name;
-    }
-    if(is_numeric($matches[2])) {
-      $matches[2] .= "-2";
+    if(is_numeric($post_name)) {
+      $post_name .= "-2";
     }
     return $post_name;
   }
@@ -381,33 +325,43 @@ class ScrapeSite
   /**
    * Scrape a page date
    */
-  protected function pageDate($crawler)
+  protected function pageDate($crawler, $url)
   {
-    $crawler->filter('.FR')->each(function ($node, $i) use (&$page_date) {
-      preg_match("/\d{2}-[a-zA-z]{3}-\d{4}/", "19-Mar-2015", $matches);
-      if(!empty($matches[0])) {
-        $date = DateTime::createFromFormat('d-M-Y', $matches[0]);
-        $page_date = $date->format('Y-m-d H:i:s');
+    $crawler->filter('.footer-date')->each(function ($node, $i) use (&$date) {
+      $text = $node->text();
+      $pattern = '/Page last updated on (\d{2}\s[A-Za-z]+\s\d{4})/';
+      preg_match($pattern, $text, $matches);
+      if(!empty($matches[1])) {
+        $date = preg_replace($pattern, "$1", $text);
       }
     });
-    return $page_date;
+    if(empty($date)) {
+      echo "Post date missing for: " . $url . "<br>";
+      return;
+    } else {
+      $date = DateTime::createFromFormat('d F Y', $date);
+      $date = $date->format('Y-m-d H:i:s');
+      return $date;
+    }
   }
 
   /**
    * Scrape a post date
    */
-  protected function postDate($crawler)
+  protected function postDate($crawler, $url)
   {
-    $post_date = $crawler->filter('#wide p strong')->each(function ($node, $i) {
-      preg_match("/^[0-9]{1,2}\s+[A-Za-z]+\s+[0-9]{4}/", $node->text(), $matches);
-      if(!empty($matches[0])) {
-        $matches[0] = preg_replace('/\s+/', ' ', $matches[0]);
-        $matches[0] = str_replace("Febrary", "February", $matches[0]);
-        $date = DateTime::createFromFormat('j F Y', $matches[0]);
-        return $date->format('Y-m-d H:i:s');
+    $crawler->filter('#mainContent')->each(function ($node, $i) use (&$post_date, &$url) {
+      $html = $node->html();
+      preg_match('/^\s*<h1>\s*(.+)\s*<\/h1>\s*<h2>\s*(.+)\s*<\/h2>\s*<h3>\s*(.+)\s*<\/h3>/', $html, $date);
+      if(!empty($date[3])) {
+        $post_date = DateTime::createFromFormat('d F Y', trim($date[3]));
+        $post_date = $post_date->format('Y-m-d H:i:s');
+      } else {
+        echo "Can't find Date on: " . $url . "<br>";
       }
+
     });
-    return $post_date[0];
+    return $post_date;
   }
 
   /**
@@ -415,45 +369,51 @@ class ScrapeSite
    */
   protected function import()
   {
-    $json = file_get_contents( $this->json );
-    $pages = json_decode( $json );
-    foreach ($pages as $page) {
-      $post = array(
-        'post_content' => $page->post_content,
-        'post_title' => $page->post_title,
-        'post_name' => $page->post_name,
-        'post_date' => $page->post_date,
-        'post_date_gmt' => $page->post_date,
-        'post_type' => $page->post_type,
-        'post_status' => 'publish',
-        'post_parent' => $this->getID($page->post_parent),
-      );
-      if($this->import == true) {
-        wp_insert_post( $post, $error );
-      }
+    if($this->import == true) {
+      $json = file_get_contents( $this->json );
+      $pages = json_decode( $json );
+      foreach ($pages as $page) {
+        $post = array(
+          'post_content' => $page->post_content,
+          'post_title' => $page->post_title,
+          'post_name' => $page->post_name,
+          'post_date' => $page->post_date,
+          'post_date_gmt' => $page->post_date,
+          'post_type' => $page->post_type,
+          'post_category' => array($page->post_category),
+          'post_status' => 'publish',
+          'post_parent' => $this->getID($page->post_parent),
+        );
 
-      if(!empty($error)) {
-        print "There was an error importing the posts.";
-        die();
+        wp_insert_post( $post, $error );
+
+        if(!empty($post->ID) && !empty($page->post_category)) {
+          update_field('field_55783009d0ba5', $page->post_category, $post->ID);
+        }
+
+        if(!empty($error)) {
+          print "There was an error importing the posts.";
+          die();
+        }
       }
     }
   }
 
-  protected function getID($slug) {
-    if(empty($slug)) {
+  protected function getID($title) {
+    if(empty($title)) {
       return;
     }
-    $page = get_page_by_path($slug);
+    $page = get_page_by_title($title);
     if ($page) {
       return $page->ID;
     } else {
-      print "Failed to find Slug: " . $slug . "<br>";
+      print "Failed to find Title: " . $title . "<br>";
       return null;
     }
   }
 }
 
-$export = new ScrapeSite("internal_html.csv", "export.json", false);
+$export = new ScrapeSite("internal_html.csv", "export.json", true);
 ?>
 </body>
 </html>
