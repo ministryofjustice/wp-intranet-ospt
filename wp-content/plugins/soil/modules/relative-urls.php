@@ -14,11 +14,11 @@ use Roots\Soil\Utils;
  * add_theme_support('soil-relative-urls');
  */
 function enable_root_relative_urls() {
-  return !(is_admin() || preg_match('/sitemap(_index)?\.xml/', $_SERVER['REQUEST_URI']) || in_array($GLOBALS['pagenow'], ['wp-login.php', 'wp-register.php']));
+  return !(is_admin() || preg_match('/sitemap(_index)?\.xml/', $_SERVER['REQUEST_URI']) || in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php')));
 }
 
 if (enable_root_relative_urls()) {
-  $root_rel_filters = [
+  $root_rel_filters = array(
     'bloginfo_url',
     'the_permalink',
     'wp_list_pages',
@@ -35,7 +35,7 @@ if (enable_root_relative_urls()) {
     'the_author_posts_link',
     'script_loader_src',
     'style_loader_src'
-  ];
+  );
 
   Utils\add_filters($root_rel_filters, 'Roots\\Soil\\Utils\\root_relative_url');
 }
