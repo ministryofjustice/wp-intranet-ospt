@@ -1,0 +1,140 @@
+@charset "utf-8";
+/* CSS Document */
+/**
+ * [File : news.css]
+ *
+ * Project:         Ministry of Justice Intranet
+ * Version:         1.0.
+ * Last change:     10/09/09
+ * Assigned to:     Geoff Anscombe, Harjinder Virk MOJ
+ *
+ *
+ *
+ * [Table of contents]
+ *
+ *  Generic homepage styles
+ *  Announcements box
+ *  Mojozine + latest news month list
+ *    Events month container
+ *    Media summaries
+*/
+
+
+/*------------------------------------------------------------------
+ * Generic homepage styles
+*/
+body.homepage #mainContent h1 {
+    padding: 5px 10px;
+    background: #f3f2e9;
+    color: #333366;
+    font-size: 1.2em}
+body.homepage #mainContent a {color: #333366;}
+
+
+/*------------------------------------------------------------------
+ * Announcements box 
+*/
+#mainContent .annoucements ul, #mainContent .annoucements p {margin-left: 10px;}
+body #mainContent .annoucements ul li {background: url(structure-images/red.gif) no-repeat 0 5px;}
+#mainContent .annoucements ul li strong {margin-right: 10px; font-size: 95%;}
+
+
+/*------------------------------------------------------------------
+ * Mojozine + latest news month list
+*/
+#mainContent .promo-container{margin: 10px 0 20px 0;}
+#mainContent .promo-container div{
+    padding: 0;
+    border-bottom: 1px solid #333366;
+}
+#mainContent .promo-container div.last{border-bottom: none; margin-bottom: 80px;}
+#mainContent .promo-container div a{
+    width: 100%;
+    height: 100%;
+    display: block;
+    text-decoration: none;
+    padding: 10px 0;
+}
+#mainContent .promo-container div a:hover{background: #f3f2e9;}
+#mainContent .promo-container div a span:hover{cursor: pointer;}
+#mainContent .promo-container div a span.date{
+    font-size: 3em;
+    color: #333;
+    display: block;
+    margin: 0;
+    text-align: center;
+    width: 75px;
+    float: left;
+    padding-top: 10px;
+}
+#mainContent .promo-container div a img{
+    border: 2px solid #ccc;
+    padding: 1px;
+    margin: 0 10px 0 10px;
+    float: left;
+}
+#mainContent .promo-container div a span.title{
+    font-size: 1em;
+    font-weight: bold;
+    display: block;
+}
+#mainContent .promo-container div a span.desc{
+    color: #333333;
+    display: block;
+}
+
+
+
+/*------------------------------------------------------------------
+ * Events month container
+*/
+#mainContent #events-month-container{margin: 10px 0 20px 0;}
+#mainContent #events-month-container div{
+    padding: 0 0 0 5px;
+    border-bottom: 1px solid #333366;
+}
+#mainContent #events-month-container div.weekend{background: #f3f2e9;}
+#mainContent #events-month-container div.last{border-bottom: none; margin-bottom: 80px;}
+#mainContent #events-month-container div span.date{
+    font-size: 2em;
+    color: #333;
+    display: block;
+    margin: 0 10px 0 0;
+    text-align: left;
+    width: 125px;
+    float: left;
+    padding-top: 5px;
+}
+#mainContent #events-month-container div span.content{
+    display: block;
+    float: left;
+    padding-top: 5px;
+}
+#mainContent #events-month-container div span.content ul{margin-bottom: 10px;}
+#mainContent #events-month-container div span.content ul li{background: none; padding-left: 0;}
+#mainContent #events-month-container div span.content ul li a, #mainContent #events-month-container div span.content ul li span{background: none; padding-left: 12px;}
+#mainContent #events-month-container div span.content ul li a:hover, #mainContent #events-month-container div span.content ul li.current a{background: url(structure-images/red.gif) no-repeat 0 5px;}
+
+/* #highlight-april ul#sub-level li.april a{background: url(structure-images/red.gif) no-repeat 0 5px;} */
+
+
+/*------------------------------------------------------------------
+ * Media summaries
+*/
+.media-summaries-table {
+    border: 1px solid #333366;
+    margin-bottom: 20px;
+    padding-bottom: 0;
+}
+#mainContent .media-summaries-table h3, .media-summaries-table h4{
+    background: #f3f2e9;
+    padding: 5px 10px;
+    margin-top: 0;
+}
+.media-summaries-table .left_col {
+    width: 49.7%;
+    float: left;
+    border-right: 1px solid #333366;
+    margin-bottom: 0;
+}
+.media-summaries-table .right_col {width: 49.7%;}
