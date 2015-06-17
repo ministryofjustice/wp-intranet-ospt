@@ -391,6 +391,10 @@ class ScrapeSite
           update_field('field_55783009d0ba5', $page->post_category, $post->ID);
         }
 
+        if(!empty($post->ID) && $page->post_type == 'post') {
+          update_field('field_55794a1b32019', $page->post_content, $post->ID);
+        }
+
         if(!empty($error)) {
           print "There was an error importing the posts.";
           die();
