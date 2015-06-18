@@ -115,7 +115,12 @@ class ScrapeSite
       "http://intranet-ospt.dev/export/dump/696.htm",
       "http://intranet-ospt.dev/export/dump/news-2011.htm",
       "http://intranet-ospt.dev/export/dump/ospt-intranet.htm",
-      "http://intranet-ospt.dev/export/dump/news-2009.htm"
+      "http://intranet-ospt.dev/export/dump/news-2009.htm",
+      "http://intranet-ospt.dev/export/dump/office-notices-2012.htm",
+      "http://intranet-ospt.dev/export/dump/office-notices-2011.htm",
+      "http://intranet-ospt.dev/export/dump/office-notices-2013.htm",
+      "http://intranet-ospt.dev/export/dump/779.htm",
+      "http://intranet-ospt.dev/export/dump/office-notices-2010.htm",
     ];
     preg_match("/http:\/\/intranet-ospt.dev\/export\/dump\/[a-z].htm/", $var, $matches);
     if(!empty($matches) || in_array($var, $ignore)) {
@@ -179,7 +184,7 @@ class ScrapeSite
           }
 
           if(!empty($scrape)) {
-            print "Saved: " . $url . "<br>";
+            //print "Saved: " . $url . "<br>";
             return $scrape;
           } else {
             print "Error Saving: " . $url . "<br>";
@@ -217,7 +222,7 @@ class ScrapeSite
       } elseif(!empty($h1[1])) {
         $post_title = $h1[1];
       } else {
-        echo "Can't find Title on: " . $url . "<br>";
+        print "Can't find Title on: " . $url . "<br>";
       }
 
     });
@@ -336,7 +341,7 @@ class ScrapeSite
       }
     });
     if(empty($date)) {
-      echo "Post date missing for: " . $url . "<br>";
+      print "Date Missing: " . $url . "<br>";
       return;
     } else {
       $date = DateTime::createFromFormat('d F Y', $date);
@@ -357,7 +362,7 @@ class ScrapeSite
         $post_date = DateTime::createFromFormat('d F Y', trim($date[3]));
         $post_date = $post_date->format('Y-m-d H:i:s');
       } else {
-        echo "Can't find Date on: " . $url . "<br>";
+        print "Date Missing: " . $url . "<br>";
       }
 
     });
@@ -417,7 +422,7 @@ class ScrapeSite
   }
 }
 
-$export = new ScrapeSite("internal_html.csv", "export.json", true);
+$export = new ScrapeSite("internal_html.csv", "export.json", false);
 ?>
 </body>
 </html>
