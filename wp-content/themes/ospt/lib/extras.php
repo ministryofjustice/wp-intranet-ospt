@@ -135,7 +135,8 @@ function redirect_post() {
   }
 
   $category = get_single_category();
-  if( (is_category('News') || is_category('Office Notices')) && empty(get_query_var('year')) )  {
+  $year = get_query_var('year');
+  if( (is_category('News') || is_category('Office Notices')) && empty($year) )  {
     $category_id = get_cat_ID( $category  );
     $category = get_category( $category_id );
     wp_redirect( home_url() . '/' . $category->slug . '/' . date('Y') , 301 );
