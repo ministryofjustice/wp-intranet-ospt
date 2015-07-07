@@ -59,7 +59,7 @@ class ScrapeSite
    */
   protected function scrape($urls)
   {
-    $scrape = [];
+    $scrape = array();
     foreach($urls as $url) {
       $result = $this->crawl($url);
       if(!empty($result)) {
@@ -107,7 +107,7 @@ class ScrapeSite
 
   protected function ignore_pages($var)
   {
-    $ignore = [
+    $ignore = array(
       "http://intranet-ospt.dev/export/dump/index.htm",
       "http://intranet-ospt.dev/export/dump/news-and-events.htm",
       "http://intranet-ospt.dev/export/dump/778.htm",
@@ -121,7 +121,7 @@ class ScrapeSite
       "http://intranet-ospt.dev/export/dump/office-notices-2013.htm",
       "http://intranet-ospt.dev/export/dump/779.htm",
       "http://intranet-ospt.dev/export/dump/office-notices-2010.htm",
-    ];
+    );
     preg_match("/http:\/\/intranet-ospt.dev\/export\/dump\/[a-z].htm/", $var, $matches);
     if(!empty($matches) || in_array($var, $ignore)) {
       return false;
@@ -162,23 +162,23 @@ class ScrapeSite
           $post_type = $this->postType($crawler, $url);
           //$this->checkSidebar($crawler, $url);
           if($post_type == "page") {
-            $scrape = [
+            $scrape = array(
               "post_title" => $this->postTitle($crawler, $url),
               "post_content" => $this->postContent($crawler, $post_type),
               "post_name" => $this->postName($url),
               "post_date" => $this->pageDate($crawler, $url),
               "post_parent" => $this->postParent($crawler),
               "post_type" => $post_type
-            ];
+            );
           } elseif($post_type == "post_news") {
-            $scrape = [
+            $scrape = array(
               "post_title" => $this->postTitle($crawler, $url),
               "post_content" => $this->postContent($crawler, $post_type),
               "post_name" => $this->postName($url),
               "post_date" => $this->postDate($crawler, $url),
               "post_type" => 'post',
               'post_category' => 1,
-            ];
+            );
           } elseif($post_type == "post_office_notices") {
 
           }
@@ -242,7 +242,7 @@ class ScrapeSite
       $post_content = preg_replace("/http:\/\/intranet.justice.gsi.gov.uk\/ospt/", "/", $post_content);
       $post_content = preg_replace("/<div class=\"imageBox\"><\/div>/", "", $post_content);
 
-      if($post_type = "post_news") {
+      if($post_type == "post_news") {
         $post_content = preg_replace('/^\s*<h3>\s*(.+)\s*<\/h3>/', "", $post_content);
       }
 
