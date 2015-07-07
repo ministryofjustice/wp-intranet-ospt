@@ -2,11 +2,11 @@
 
 if( function_exists('acf_add_local_field_group') ):
 
-acf_add_local_field_group(array (
+acf_add_local_field_group(array(
   'key' => 'group_55783005a3974',
   'title' => 'Category',
-  'fields' => array (
-    array (
+  'fields' => array(
+    array(
       'key' => 'field_55783009d0ba5',
       'label' => 'Category',
       'name' => 'category',
@@ -14,7 +14,7 @@ acf_add_local_field_group(array (
       'instructions' => '',
       'required' => 1,
       'conditional_logic' => 0,
-      'wrapper' => array (
+      'wrapper' => array(
         'width' => '',
         'class' => '',
         'id' => '',
@@ -28,9 +28,9 @@ acf_add_local_field_group(array (
       'multiple' => 0,
     ),
   ),
-  'location' => array (
-    array (
-      array (
+  'location' => array(
+    array(
+      array(
         'param' => 'post_type',
         'operator' => '==',
         'value' => 'post',
@@ -45,11 +45,11 @@ acf_add_local_field_group(array (
   'hide_on_screen' => '',
 ));
 
-acf_add_local_field_group(array (
+acf_add_local_field_group(array(
   'key' => 'group_55794a1653ef5',
   'title' => 'Content',
-  'fields' => array (
-    array (
+  'fields' => array(
+    array(
       'key' => 'field_55794a1b32019',
       'label' => 'Content',
       'name' => 'content',
@@ -57,7 +57,7 @@ acf_add_local_field_group(array (
       'instructions' => '',
       'required' => 1,
       'conditional_logic' => 0,
-      'wrapper' => array (
+      'wrapper' => array(
         'width' => '',
         'class' => '',
         'id' => '',
@@ -68,14 +68,14 @@ acf_add_local_field_group(array (
       'media_upload' => 1,
     ),
   ),
-  'location' => array (
-    array (
-      array (
+  'location' => array(
+    array(
+      array(
         'param' => 'post_type',
         'operator' => '==',
         'value' => 'post',
       ),
-      array (
+      array(
         'param' => 'post_category',
         'operator' => '==',
         'value' => 'category:news',
@@ -90,11 +90,11 @@ acf_add_local_field_group(array (
   'hide_on_screen' => '',
 ));
 
-acf_add_local_field_group(array (
+acf_add_local_field_group(array(
   'key' => 'group_55782c75ad4cd',
   'title' => 'Document',
-  'fields' => array (
-    array (
+  'fields' => array(
+    array(
       'key' => 'field_55782c7acba06',
       'label' => 'Document',
       'name' => 'document',
@@ -102,7 +102,7 @@ acf_add_local_field_group(array (
       'instructions' => '',
       'required' => 1,
       'conditional_logic' => 0,
-      'wrapper' => array (
+      'wrapper' => array(
         'width' => '',
         'class' => '',
         'id' => '',
@@ -114,14 +114,14 @@ acf_add_local_field_group(array (
       'mime_types' => '.doc, .docx',
     ),
   ),
-  'location' => array (
-    array (
-      array (
+  'location' => array(
+    array(
+      array(
         'param' => 'post_type',
         'operator' => '==',
         'value' => 'post',
       ),
-      array (
+      array(
         'param' => 'post_category',
         'operator' => '==',
         'value' => 'category:office-notices',
@@ -136,11 +136,11 @@ acf_add_local_field_group(array (
   'hide_on_screen' => '',
 ));
 
-acf_add_local_field_group(array (
+acf_add_local_field_group(array(
   'key' => 'group_5581765055379',
   'title' => 'Document Downloads',
-  'fields' => array (
-    array (
+  'fields' => array(
+    array(
       'key' => 'field_55817654f4231',
       'label' => 'Document Downloads',
       'name' => 'document_downloads',
@@ -148,7 +148,7 @@ acf_add_local_field_group(array (
       'instructions' => '',
       'required' => 0,
       'conditional_logic' => 0,
-      'wrapper' => array (
+      'wrapper' => array(
         'width' => '',
         'class' => '',
         'id' => '',
@@ -157,8 +157,8 @@ acf_add_local_field_group(array (
       'max' => '',
       'layout' => 'block',
       'button_label' => 'Add Row',
-      'sub_fields' => array (
-        array (
+      'sub_fields' => array(
+        array(
           'key' => 'field_5581765ff4232',
           'label' => 'Title',
           'name' => 'title',
@@ -166,7 +166,7 @@ acf_add_local_field_group(array (
           'instructions' => '',
           'required' => 1,
           'conditional_logic' => 0,
-          'wrapper' => array (
+          'wrapper' => array(
             'width' => '',
             'class' => '',
             'id' => '',
@@ -179,7 +179,7 @@ acf_add_local_field_group(array (
           'readonly' => 0,
           'disabled' => 0,
         ),
-        array (
+        array(
           'key' => 'field_55817665f4233',
           'label' => 'File',
           'name' => 'file',
@@ -187,7 +187,7 @@ acf_add_local_field_group(array (
           'instructions' => '',
           'required' => 1,
           'conditional_logic' => 0,
-          'wrapper' => array (
+          'wrapper' => array(
             'width' => '',
             'class' => '',
             'id' => '',
@@ -201,16 +201,16 @@ acf_add_local_field_group(array (
       ),
     ),
   ),
-  'location' => array (
-    array (
-      array (
+  'location' => array(
+    array(
+      array(
         'param' => 'post_type',
         'operator' => '==',
         'value' => 'page',
       ),
     ),
-    array (
-      array (
+    array(
+      array(
         'param' => 'page_parent',
         'operator' => '!=',
         'value' => '685',
@@ -225,11 +225,11 @@ acf_add_local_field_group(array (
   'hide_on_screen' => '',
 ));
 
-acf_add_local_field_group(array (
+acf_add_local_field_group(array(
   'key' => 'group_557eb934b336b',
   'title' => 'Related Links',
-  'fields' => array (
-    array (
+  'fields' => array(
+    array(
       'key' => 'field_557eb93a3bf4f',
       'label' => 'Links',
       'name' => 'links',
@@ -237,7 +237,7 @@ acf_add_local_field_group(array (
       'instructions' => '',
       'required' => 0,
       'conditional_logic' => 0,
-      'wrapper' => array (
+      'wrapper' => array(
         'width' => '',
         'class' => '',
         'id' => '',
@@ -246,8 +246,8 @@ acf_add_local_field_group(array (
       'max' => '',
       'layout' => 'block',
       'button_label' => 'Add Row',
-      'sub_fields' => array (
-        array (
+      'sub_fields' => array(
+        array(
           'key' => 'field_557eb9403bf50',
           'label' => 'Title',
           'name' => 'title',
@@ -255,7 +255,7 @@ acf_add_local_field_group(array (
           'instructions' => '',
           'required' => 1,
           'conditional_logic' => 0,
-          'wrapper' => array (
+          'wrapper' => array(
             'width' => '',
             'class' => '',
             'id' => '',
@@ -268,7 +268,7 @@ acf_add_local_field_group(array (
           'readonly' => 0,
           'disabled' => 0,
         ),
-        array (
+        array(
           'key' => 'field_557eb94a3bf51',
           'label' => 'Link',
           'name' => 'link',
@@ -276,7 +276,7 @@ acf_add_local_field_group(array (
           'instructions' => '',
           'required' => 1,
           'conditional_logic' => 0,
-          'wrapper' => array (
+          'wrapper' => array(
             'width' => '',
             'class' => '',
             'id' => '',
@@ -287,16 +287,16 @@ acf_add_local_field_group(array (
       ),
     ),
   ),
-  'location' => array (
-    array (
-      array (
+  'location' => array(
+    array(
+      array(
         'param' => 'post_type',
         'operator' => '==',
         'value' => 'page',
       ),
     ),
-    array (
-      array (
+    array(
+      array(
         'param' => 'page',
         'operator' => '!=',
         'value' => '685',

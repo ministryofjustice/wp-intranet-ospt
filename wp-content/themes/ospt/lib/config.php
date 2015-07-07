@@ -37,11 +37,11 @@ function display_sidebar() {
        * ['is_post_type_archive', ['foo', 'bar', 'baz']]
        *
        */
-      [
+      array(
         //'is_404',
         //'is_front_page',
         //['is_page_template', 'template-custom.php']
-      ]
+      )
     );
 
     $display = apply_filters('sage/display_sidebar', $conditionalCheck->result);
