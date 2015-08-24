@@ -182,188 +182,90 @@ $(document).ready(function() {
     });    
 });     
 */
+
 /*------------------------------------------------------------------
  * Icons for links
 */
+(function( $ ) {
+    $.fn.niceLink = function(options) {
+        var settings = $.extend({
+            addClass: false,
+            linkTitle: false
+        }, options);
+
+        this.each(function(k, element) {
+            element = $(element);
+
+            // Add title to link
+            if (settings.linkTitle) {
+                element.attr('title', settings.linkTitle);
+            }
+
+            // Add class name for file type
+            if (settings.addClass) {
+                var $parent = element.parent().get(0).tagName.toLowerCase();
+
+                if ($parent == 'li') {
+                    element.parent().addClass(settings.addClass);
+                } else {
+                    element.addClass(settings.addClass);
+                }
+            }
+
+            // Add target="_blank" if 'target' isn't already specified
+            if (typeof element.attr('target') == 'undefined') {
+                element.attr('target', '_blank');
+            }
+        });
+
+        return this;
+    };
+}( jQuery ));
+
 $(document).ready(function() {
-    // Add pdf icons to pdf links
-    $("a[href$='.pdf']").each(function (i) {
-        $(this).attr("title", $(this).attr("title") + "PDF link, opens in a new browser window. ");
-        var $parent = $(this).parent().get(0).tagName.toLowerCase();
-        if ($parent == "li") {
-            $(this).parent().addClass("pdf");
-        } else {
-            $(this).addClass("pdf");
-        }
-        $(this).click(function(){
-            window.open(this.href);
-            return false;
-        });
+    // PDF links
+    $("a[href$='.pdf'], a[href$='.PDF']").niceLink({
+        linkTitle: 'PDF link, opens in a new browser window.',
+        addClass: 'pdf'
     });
-    $("a[href$='.PDF']").each(function (i) {
-        $(this).attr("title", $(this).attr("title") + "PDF link, opens in a new browser window. ");
-        var $parent = $(this).parent().get(0).tagName.toLowerCase();
-        if ($parent == "li") {
-            $(this).parent().addClass("pdf");
-        } else {
-            $(this).addClass("pdf");
-        }
-        $(this).click(function(){
-            window.open(this.href);
-            return false;
-        });
-    });    
-    // Add doc icons to doc links
-    $("a[href$='.doc']").each(function (i) {
-        $(this).attr("title", $(this).attr("title") + "Microsoft Word link, opens in a new browser window. ");
-        var $parent = $(this).parent().get(0).tagName.toLowerCase();
-        if ($parent == "li") {
-            $(this).parent().addClass("doc");
-        } else {
-            $(this).addClass("doc");
-        }
-        $(this).click(function(){
-            window.open(this.href);
-            return false;
-        });
+
+    // DOC links
+    $("a[href$='.doc'], a[href$='.DOC']").niceLink({
+        linkTitle: 'Microsoft Word link, opens in a new browser window.',
+        addClass: 'doc'
     });
-    $("a[href$='.DOC']").each(function (i) {
-        $(this).attr("title", $(this).attr("title") + "Microsoft Word link, opens in a new browser window. ");
-        var $parent = $(this).parent().get(0).tagName.toLowerCase();
-        if ($parent == "li") {
-            $(this).parent().addClass("doc");
-        } else {
-            $(this).addClass("doc");
-        }
-        $(this).click(function(){
-            window.open(this.href);
-            return false;
-        });
-    });    
-    // Add dot icons to dot links
-    $("a[href$='.dot']").each(function (i) {
-        $(this).attr("title", $(this).attr("title") + "Microsoft Word template link, opens in a new browser window. ");
-        var $parent = $(this).parent().get(0).tagName.toLowerCase();
-        if ($parent == "li") {
-            $(this).parent().addClass("dot");
-        } else {
-            $(this).addClass("dot");
-        }
-        $(this).click(function(){
-            window.open(this.href);
-            return false;
-        });
+
+    // DOT links
+    $("a[href$='.dot'], a[href$='.DOT']").niceLink({
+        linkTitle: 'Microsoft Word template link, opens in a new browser window.',
+        addClass: 'dot'
     });
-    $("a[href$='.DOT']").each(function (i) {
-        $(this).attr("title", $(this).attr("title") + "Microsoft Word template link, opens in a new browser window. ");
-        var $parent = $(this).parent().get(0).tagName.toLowerCase();
-        if ($parent == "li") {
-            $(this).parent().addClass("dot");
-        } else {
-            $(this).addClass("dot");
-        }
-        $(this).click(function(){
-            window.open(this.href);
-            return false;
-        });
-    });    
-    // Add ppt icons to ppt links
-    $("a[href$='.ppt']").each(function (i) {
-        $(this).attr("title", $(this).attr("title") + "Microsoft Power point link, opens in a new browser window. ");
-        var $parent = $(this).parent().get(0).tagName.toLowerCase();
-        if ($parent == "li") {
-            $(this).parent().addClass("ppt");
-        } else {
-            $(this).addClass("ppt");
-        }
-        $(this).click(function(){
-            window.open(this.href);
-            return false;
-        });
+
+    // PPT links
+    $("a[href$='.ppt'], a[href$='.PPT']").niceLink({
+        linkTitle: 'Microsoft Power point link, opens in a new browser window.',
+        addClass: 'ppt'
     });
-    $("a[href$='.PPT']").each(function (i) {
-        $(this).attr("title", $(this).attr("title") + "Microsoft Power point link, opens in a new browser window. ");
-        var $parent = $(this).parent().get(0).tagName.toLowerCase();
-        if ($parent == "li") {
-            $(this).parent().addClass("ppt");
-        } else {
-            $(this).addClass("ppt");
-        }
-        $(this).click(function(){
-            window.open(this.href);
-            return false;
-        });
-    });    
-    // Add xls icons to xls links
-    $("a[href$='.xls']").each(function (i) {
-        $(this).attr("title", $(this).attr("title") + "Microsoft Excel link, opens in a new browser window. ");
-        var $parent = $(this).parent().get(0).tagName.toLowerCase();
-        if ($parent == "li") {
-            $(this).parent().addClass("xls");
-        } else {
-            $(this).addClass("xls");
-        }
-        $(this).click(function(){
-            window.open(this.href);
-            return false;
-        });
+
+    // XLS links
+    $("a[href$='.xls'], a[href$='.XLS']").niceLink({
+        linkTitle: 'Microsoft Excel link, opens in a new browser window.',
+        addClass: 'xls'
     });
-    $("a[href$='.XLS']").each(function (i) {
-        $(this).attr("title", $(this).attr("title") + "Microsoft Excel link, opens in a new browser window. ");
-        var $parent = $(this).parent().get(0).tagName.toLowerCase();
-        if ($parent == "li") {
-            $(this).parent().addClass("xls");
-        } else {
-            $(this).addClass("xls");
-        }
-        $(this).click(function(){
-            window.open(this.href);
-            return false;
-        });
-    });    
-    // Add email icons to email links
-    $("a[href^='mailto:']").each(function (i) {
-        $(this).attr("title", $(this).attr("title") + "This is an email link. ");
-        var $parent = $(this).parent().get(0).tagName.toLowerCase();
-        if ($parent == "li") {
-            $(this).parent().addClass("email");
-        } else {
-            $(this).addClass("email");
-        }
-        $(this).click(function(){
-            window.open(this.href);
-            return false;
-        });
+
+    // Email links
+    $("a[href^='mailto:']").niceLink({
+        linkTitle: 'This is an email link.',
+        addClass: 'email'
     });
-    // Add html icons to http links
-    $("#mainContent a[href^='http:'], #rightColumn a[href^='http:']").each(function (i) {
-        $(this).attr("title", $(this).attr("title") + "External website link, opens in a new browser window. ");
-        var $parent = $(this).parent().get(0).tagName.toLowerCase();
-        if ($parent == "li") {
-            $(this).parent().addClass("http");
-        } else {
-            $(this).addClass("http");
-        }
-        $(this).click(function(){
-            window.open(this.href);
-            return false;
-        });
+
+    // External links
+    var currentDomain = document.location.protocol + '//' + document.location.hostname;
+    var outboundLinks = 'a[href^="http"]:not([href*="' + currentDomain + '"])';
+    $('#mainContent ' + outboundLinks + ', #rightColumn ' + outboundLinks).niceLink({
+        linkTitle: 'External website link, opens in a new browser window.',
+        addClass: 'http'
     });
-    // Add html icons to https links
-    $("#mainContent a[href^='https:'], #rightColumn a[href^='https:']").each(function (i) {
-        $(this).attr("title", $(this).attr("title") + "External website link, opens in a new browser window. ");
-        var $parent = $(this).parent().get(0).tagName.toLowerCase();
-        if ($parent == "li") {
-            $(this).parent().addClass("http");
-        } else {
-            $(this).addClass("http");
-        }
-        $(this).click(function(){
-            window.open(this.href);
-            return false;
-        });
-    });    
-    
 });
 /*------------------------------------------------------------------
  * Content fader functions
