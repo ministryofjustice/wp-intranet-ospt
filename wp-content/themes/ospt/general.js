@@ -213,7 +213,7 @@ $(document).ready(function() {
             }
 
             // Add target="_blank" if 'target' isn't already specified
-            if (typeof element.attr('target') == 'undefined') {
+            if (typeof element.attr('target') == 'undefined' || element.attr('target') == '') {
                 element.attr('target', '_blank');
             }
         });
