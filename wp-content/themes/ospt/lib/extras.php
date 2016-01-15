@@ -95,6 +95,13 @@ function get_top_parent_ID() {
   return $id;
 }
 
+/**
+ * Get posts for category within the specified year.
+ *
+ * @param string $type
+ * @param mixed $year
+ * @return \WP_Query
+ */
 function get_news_posts($type, $year) {
   $args = array(
     'post_type' => 'post',
@@ -102,6 +109,43 @@ function get_news_posts($type, $year) {
     'year' => $year,
     'category_name' => $type
   );
+  $query = new \WP_Query($args);
+  return $query;
+}
+
+/**
+ * Get latest posts for category, limited by date or count.
+ *
+ * @param string $type Post category
+ * @param string $maxAge Max age for posts, default "1 month"
+ * @param int $limitCount Limit to count, default no limit (null)
+ * @return \WP_Query
+ */
+function get_latest_news_posts($type, $maxAge = '1 month', $limitCount = null) {
+  $args = array(
+      'post_type' => 'post',
+      'posts_per_page' => -1,
+      'category_name' => $type
+  );
+
+  // Limit by date
+  if (!is_null($maxAge)) {
+    $now = time();
+    $aged = strtotime($maxAge, $now);
+    $timestamp = strtotime('-1 day', $now - ( $aged - $now ));
+    $afterDate = array(
+      'year'  => date('Y', $timestamp),
+      'month' => date('m', $timestamp),
+      'day'   => date('j', $timestamp),
+    );
+    $args['date_query']['after'] = $afterDate;
+  }
+
+  // Limit count
+  if (!is_null($limitCount)) {
+    $args['posts_per_page'] = $limitCount;
+  }
+
   $query = new \WP_Query($args);
   return $query;
 }
@@ -139,8 +183,113 @@ function redirect_post() {
   if( (is_category('News') || is_category('Office Notices')) && empty($year) )  {
     $category_id = get_cat_ID( $category  );
     $category = get_category( $category_id );
-    wp_redirect( home_url() . '/' . $category->slug . '/' . date('Y') , 301 );
+    $archiveYears = get_archive_years_for_category($category->slug, 1);
+
+    if (count($archiveYears) > 0) {
+      $year = $archiveYears[0];
+    } else {
+      $year = date('Y');
+    }
+
+    wp_redirect(home_url() . '/' . $category->slug . '/' . $year . '/', 302);
     exit;
   }
 }
 add_action( 'template_redirect', __NAMESPACE__ . '\\redirect_post' );
+
+/**
+ * Dynamically add yearly archive links to "News" and "Office Notices" menu items.
+ *
+ * @param array $items
+ * @return array
+ */
+function menu_archive_links($items) {
+  foreach ($items as $item) {
+    if (in_array($item->title, array('News', 'Office Notices'))) {
+      $category = $item->title == 'Office Notices' ? 'office-notices' : 'news';
+      $archiveItems = get_year_archive_menu_items($item, $category);
+
+      if (count($archiveItems) > 0) {
+        $item->classes[] = 'menu-item-has-children';
+      }
+
+      if (is_category($category)) {
+        $item->classes[] = 'current-menu-ancestor';
+        $item->classes[] = 'current-menu-parent';
+        $item->classes[] = 'current_page_parent';
+        $item->classes[] = 'current_page_ancestor';
+      }
+
+      $items = array_merge($items, $archiveItems);
+    }
+  }
+  return $items;
+}
+add_filter('wp_nav_menu_objects', __NAMESPACE__ . '\\menu_archive_links');
+
+/**
+ * Return menu items for the supplied category link.
+ *
+ * @param \WP_Post $parentItem
+ * @param string $category
+ * @return array
+ */
+function get_year_archive_menu_items(\WP_Post $parentItem, $category) {
+  $years = get_archive_years_for_category($category);
+
+  $items = array();
+  foreach ($years as $year) {
+    $classes = array();
+    if (is_category($category) && $year == get_query_var('year')) {
+      $classes[] = 'current';
+    }
+
+    $link = array(
+      'title' => $year,
+      'menu_item_parent' => $parentItem->ID,
+      'ID' => $parentItem->ID . '-' . $year,
+      'db_id' => '',
+      'url' => $parentItem->url . '/' . $year . '/',
+      'classes' => $classes,
+    );
+
+    $items[] = (object) $link;
+  }
+
+  return $items;
+}
+
+/**
+ * Get available archive years for category slug.
+ *
+ * @param string $category Category slug
+ * @param int $limit
+ * @return array
+ */
+function get_archive_years_for_category($category, $limit = 0) {
+  global $wpdb;
+
+  $sql = "SELECT YEAR($wpdb->posts.post_date) AS year
+          FROM $wpdb->posts
+          LEFT JOIN $wpdb->term_relationships ON ( $wpdb->term_relationships.object_id = $wpdb->posts.ID )
+          LEFT JOIN $wpdb->term_taxonomy ON ( $wpdb->term_taxonomy.term_taxonomy_id = $wpdb->term_relationships.term_taxonomy_id )
+          LEFT JOIN $wpdb->terms ON ( $wpdb->terms.term_id = $wpdb->term_taxonomy.term_id )
+          WHERE $wpdb->posts.post_type = 'post'
+          AND $wpdb->posts.post_status = 'publish'
+          AND $wpdb->terms.slug = %s
+          GROUP BY YEAR($wpdb->posts.post_date)
+          ORDER BY $wpdb->posts.post_date DESC";
+
+  $prepareVars = array(
+      $category,
+  );
+
+  if ($limit > 0) {
+    $sql .= "\n LIMIT %d";
+    $prepareVars[] = $limit;
+  }
+
+  $sql = $wpdb->prepare($sql, $prepareVars);
+  $results = $wpdb->get_col($sql, 0);
+  return array_map('intval', $results);
+}
