@@ -95,6 +95,13 @@ function get_top_parent_ID() {
   return $id;
 }
 
+/**
+ * Get posts for category within the specified year.
+ *
+ * @param string $type
+ * @param mixed $year
+ * @return \WP_Query
+ */
 function get_news_posts($type, $year) {
   $args = array(
     'post_type' => 'post',
@@ -102,6 +109,43 @@ function get_news_posts($type, $year) {
     'year' => $year,
     'category_name' => $type
   );
+  $query = new \WP_Query($args);
+  return $query;
+}
+
+/**
+ * Get latest posts for category, limited by date or count.
+ *
+ * @param string $type Post category
+ * @param string $maxAge Max age for posts, default "1 month"
+ * @param int $limitCount Limit to count, default no limit (null)
+ * @return \WP_Query
+ */
+function get_latest_news_posts($type, $maxAge = '1 month', $limitCount = null) {
+  $args = array(
+      'post_type' => 'post',
+      'posts_per_page' => -1,
+      'category_name' => $type
+  );
+
+  // Limit by date
+  if (!is_null($maxAge)) {
+    $now = time();
+    $aged = strtotime($maxAge, $now);
+    $timestamp = strtotime('-1 day', $now - ( $aged - $now ));
+    $afterDate = array(
+      'year'  => date('Y', $timestamp),
+      'month' => date('m', $timestamp),
+      'day'   => date('j', $timestamp),
+    );
+    $args['date_query']['after'] = $afterDate;
+  }
+
+  // Limit count
+  if (!is_null($limitCount)) {
+    $args['posts_per_page'] = $limitCount;
+  }
+
   $query = new \WP_Query($args);
   return $query;
 }

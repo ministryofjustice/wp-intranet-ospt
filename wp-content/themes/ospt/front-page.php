@@ -2,8 +2,8 @@
 
 use Roots\Sage\Extras;
 
-$news = Extras\get_news_posts('news', date('Y'));
-$office_notices = Extras\get_news_posts('office-notices', date('Y'));
+$news = Extras\get_latest_news_posts('news', null, 5);
+$office_notices = Extras\get_latest_news_posts('office-notices', null, 5);
 
 ?>
 <h1>
