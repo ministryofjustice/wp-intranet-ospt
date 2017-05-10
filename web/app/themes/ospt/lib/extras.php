@@ -154,6 +154,7 @@ function get_single_category() {
   global $post;
 
   $category = get_the_category( $post->ID );
+  if (empty($category)) return null;
   return $category[0]->cat_name;
 }
 
