@@ -50,7 +50,7 @@
         <div class="default">
           <p>
             Latest politics news from the BBC
-          </p><script language="javascript" src="http://feed2js.org//feed2js.php?src=http%3A%2F%2Fnewsrss.bbc.co.uk%2Frss%2Fnewsonline_uk_edition%2Fuk_politics%2Frss.xml&amp;num=3&amp;desc=0&amp;date=n&amp;targ=y" type="text/javascript">
+          </p><script language="javascript" src="https://feed2js.org/feed2js.php?src=http%3A%2F%2Fnewsrss.bbc.co.uk%2Frss%2Fnewsonline_uk_edition%2Fuk_politics%2Frss.xml&amp;num=3&amp;desc=0&amp;date=n&amp;targ=y" type="text/javascript">
   </script>
         </div>
         <?php /*<p class="accordian-heading">Parliament</p>
