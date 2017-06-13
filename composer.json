@@ -44,13 +44,13 @@
     "php": ">=5.6",
     "composer/installers": "~1.2.0",
     "vlucas/phpdotenv": "^2.0.1",
-    "johnpbloch/wordpress": "~4.7.4",
-    "koodimonni-language/core-en_gb": "~4.7.4",
+    "johnpbloch/wordpress": "~4.8.0",
+    "koodimonni-language/core-en_gb": "~4.8.0",
     "oscarotero/env": "^1.0",
     "roots/wp-password-bcrypt": "1.0.0",
     "acf/advanced-custom-fields-pro": "^5",
     "ministryofjustice/wp-rewrite-media-to-s3": "^0.1.0",
-    "wpackagist-plugin/google-analytics-dashboard-for-wp": "4.9.6.2",
+    "wpackagist-plugin/google-analytics-dashboard-for-wp": "^5",
     "wpackagist-plugin/tinymce-advanced": "^4.5"
   },
   "require-dev": {
