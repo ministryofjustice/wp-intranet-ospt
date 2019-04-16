@@ -1,11 +1,18 @@
+# PhpStorm
+.idea/
+
 # Application
-web/app/plugins/*
-!web/app/plugins/.gitkeep
-web/app/mu-plugins/*/
-web/app/upgrade
 web/app/languages
+web/app/plugins/*
+web/app/mu-plugins/*
+web/app/upgrade
 web/app/uploads/*
+
+!web/app/plugins/.gitkeep
+!web/app/mu-plugins/.gitkeep
 !web/app/uploads/.gitkeep
+
+*.sql
 
 # WordPress
 web/wp
@@ -19,3 +26,4 @@ web/.htaccess
 # Composer
 vendor/*
 !vendor/.gitkeep
+

@@ -35,7 +35,7 @@ body.homepage #mainContent a {color: #333366;}
  * Announcements box 
 */
 #mainContent .annoucements ul, #mainContent .annoucements p {margin-left: 10px;}
-body #mainContent .annoucements ul li {background: url(structure-images/red.gif) no-repeat 0 5px;}
+body #mainContent .annoucements ul li {background: url(../../structure-images/red.gif) no-repeat 0 5px;}
 #mainContent .annoucements ul li strong {margin-right: 10px; font-size: 95%;}
 
 
@@ -113,7 +113,7 @@ body #mainContent .annoucements ul li {background: url(structure-images/red.gif)
 #mainContent #events-month-container div span.content ul{margin-bottom: 10px;}
 #mainContent #events-month-container div span.content ul li{background: none; padding-left: 0;}
 #mainContent #events-month-container div span.content ul li a, #mainContent #events-month-container div span.content ul li span{background: none; padding-left: 12px;}
-#mainContent #events-month-container div span.content ul li a:hover, #mainContent #events-month-container div span.content ul li.current a{background: url(structure-images/red.gif) no-repeat 0 5px;}
+#mainContent #events-month-container div span.content ul li a:hover, #mainContent #events-month-container div span.content ul li.current a{background: url(../../structure-images/red.gif) no-repeat 0 5px;}
 
 /* #highlight-april ul#sub-level li.april a{background: url(structure-images/red.gif) no-repeat 0 5px;} */
 

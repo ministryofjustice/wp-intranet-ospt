@@ -5,11 +5,11 @@
   <?php
   $args = array(
     'menu_class'      => 'sections',
-    'menu_id'         => 'sections',
+    //'menu_id'         => 'sections',
     'menu'            => 'Secondary Navigation',
-    'fallback_cb'     => false,
+    //'fallback_cb'     => false,
     'echo'            => false,
-    'depth'           => 2,
+    'depth'           => 1,
   );
   $test = wp_nav_menu($args);
   echo str_replace('class="sub-menu"', 'id="sub-level"', $test);
