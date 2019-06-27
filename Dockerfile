@@ -1,4 +1,4 @@
-FROM mojdigital/wordpress-base:upgrade
+FROM mojdigital/wordpress-base:latest
 
 ADD . /bedrock
 
