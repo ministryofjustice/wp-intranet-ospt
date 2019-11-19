@@ -53,6 +53,8 @@
     "wpackagist-plugin/google-analytics-dashboard-for-wp": "*",
     "wpackagist-plugin/tinymce-advanced": "*",
     "wpackagist-plugin/classic-editor": "*",
+      "wpackagist-plugin/fast-user-switching": "*",
+      "ministryofjustice/wp-user-roles": "*",
       "ministryofjustice/wp-moj-components": "*"
   },
   "require-dev": {
@@ -60,7 +62,10 @@
   },
   "extra": {
     "installer-paths": {
-      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+        "web/app/mu-plugins/{$name}/": [
+            "type:wordpress-muplugin",
+            "ministryofjustice/wp-user-roles"
+        ],
       "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
       "web/app/themes/{$name}/": ["type:wordpress-theme"]
     },
