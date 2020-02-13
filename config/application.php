@@ -39,7 +39,6 @@ if (file_exists($env_config)) {
  */
 define('WP_HOME', str_replace('https://', 'http://', env('WP_HOME')));
 define('WP_SITEURL', str_replace('https://', 'http://', env('WP_SITEURL')));
-define('FORCE_SSL_ADMIN', true);
 
 /**
  * Custom Content Directory
