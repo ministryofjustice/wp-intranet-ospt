@@ -1,4 +1,4 @@
-FROM mojdigital/wordpress-base:latest
+FROM ministryofjustice/wordpress-base:latest
 
 ADD . /bedrock
 
