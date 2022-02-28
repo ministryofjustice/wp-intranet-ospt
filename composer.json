@@ -58,7 +58,6 @@
         "ministryofjustice/wp-rewrite-media-to-s3": "*",
         "wpackagist-plugin/tinymce-advanced": "*",
         "wpackagist-plugin/classic-editor": "*",
-        "wpackagist-plugin/fast-user-switching": "*",
         "ministryofjustice/wp-user-roles": "*",
         "ministryofjustice/wp-moj-components": "*",
         "wpackagist-plugin/wp-analytify":"*",
