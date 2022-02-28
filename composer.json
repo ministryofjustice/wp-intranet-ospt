@@ -55,7 +55,7 @@
         "oscarotero/env": "^1.0",
         "roots/wp-password-bcrypt": "*",
         "acf/advanced-custom-fields-pro": "*",
-        "ministryofjustice/wp-rewrite-media-to-s3": "^0.1.0",
+        "ministryofjustice/wp-rewrite-media-to-s3": "*",
         "wpackagist-plugin/tinymce-advanced": "*",
         "wpackagist-plugin/classic-editor": "*",
         "wpackagist-plugin/fast-user-switching": "*",
